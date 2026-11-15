@@ -42,6 +42,34 @@ The optional API exposes the same workflow without duplicating physics logic:
 python -m uvicorn astroroute.api.app:app --reload
 ```
 
-Use `GET /health` for a process check and `POST /api/v1/missions/analyze` with a `Mission` payload for analysis. Interactive UI work remains deferred.
+Use `GET /health` for a process check and `POST /api/v1/missions/analyze` with a `Mission` payload for analysis. FastAPI also publishes interactive documentation at `/docs`.
+
+Example request:
+
+```json
+{
+  "initial_radius_m": 6778137,
+  "target_radius_m": 8378137,
+  "constraints": {
+    "wet_mass_kg": 1000,
+    "specific_impulse_s": 320,
+    "max_propellant_mass_kg": 1000,
+    "max_transfer_time_s": 1000000
+  },
+  "intermediate_apoapsis_radii_m": [16378137],
+  "preferences": {
+    "delta_v_weight": 0.5,
+    "transfer_time_weight": 0.25,
+    "sensitivity_weight": 0.25
+  },
+  "sensitivity": {
+    "samples": 200,
+    "burn_magnitude_error_std_fraction": 0.001,
+    "random_seed": 42
+  }
+}
+```
+
+The radius values above are request inputs in metres; the response values are calculated by the physics engine. Interactive UI work remains deferred.
 
 The model does not yet include atmospheric drag, J2 perturbations, third-body gravity, finite burns, inclination changes, navigation errors, or mission failure probability. It is a scientific MVP foundation, not flight-certification software.

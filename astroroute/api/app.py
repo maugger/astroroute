@@ -12,14 +12,26 @@ app = FastAPI(
 )
 
 
-@app.get("/health")
+@app.get(
+    "/health",
+    tags=["system"],
+    summary="Check API availability",
+)
 def health_check() -> dict[str, str]:
     """Report whether the API process is available."""
 
     return {"status": "ok"}
 
 
-@app.post("/api/v1/missions/analyze", response_model=MissionAnalysis)
+@app.post(
+    "/api/v1/missions/analyze",
+    response_model=MissionAnalysis,
+    tags=["missions"],
+    summary="Analyze a circular-orbit mission",
+    response_description=(
+        "Candidate evaluations, Pareto routes, sensitivity results, and recommendation"
+    ),
+)
 def analyze_mission_endpoint(mission: Mission) -> MissionAnalysis:
     """Run the backend mission analysis for a validated mission request."""
 

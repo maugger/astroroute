@@ -27,15 +27,19 @@ def make_payload(**updates):
 
 def test_health_endpoint_reports_api_availability():
     assert health_check() == {"status": "ok"}
-    assert "/health" in {route.path for route in app.routes}
+    health_schema = app.openapi()["paths"]["/health"]["get"]
+
+    assert health_schema["summary"] == "Check API availability"
 
 
 def test_analysis_endpoint_returns_backend_result():
     result = analyze_mission_endpoint(Mission.model_validate(make_payload()))
+    analysis_schema = app.openapi()["paths"]["/api/v1/missions/analyze"]["post"]
 
     assert len(result.candidates) == 2
     assert result.recommendation is not None
-    assert "/api/v1/missions/analyze" in {route.path for route in app.routes}
+    assert analysis_schema["summary"] == "Analyze a circular-orbit mission"
+    assert analysis_schema["requestBody"]["required"] is True
 
 
 def test_analysis_endpoint_rejects_physically_invalid_transfer():
