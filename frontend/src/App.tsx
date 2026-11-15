@@ -174,7 +174,6 @@ export function App() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand-lockup"><span className="brand-mark">AR</span><div><p className="eyebrow">MISSION CONTROL / 01</p><h1>AstroRoute</h1></div></div>
-        <span className="status-chip"><span className="status-dot" /> Backend ready</span>
       </header>
       <section className="intro">
         <div><p className="eyebrow">CIRCULAR ORBIT TRANSFER PLANNER</p><h2>Design the route.<br /><em>Understand the trade-offs.</em></h2><p className="intro-copy">A transparent mission analysis workspace for comparing impulsive Earth-orbit transfers.</p></div>
