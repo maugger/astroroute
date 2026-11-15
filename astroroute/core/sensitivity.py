@@ -6,7 +6,7 @@ from collections.abc import Iterable
 
 from .constants import EARTH_MU_M3_S2
 from .models import SensitivityResult, SensitivitySettings, TransferResult
-from .orbital import circular_velocity, vis_viva_velocity
+from .orbital import circular_velocity
 
 State = tuple[float, float, float, float]
 

@@ -24,7 +24,6 @@ app = FastAPI(
     description="Explainable circular-orbit transfer analysis.",
 )
 
-
 @app.exception_handler(RequestValidationError)
 async def request_validation_exception_handler(
     request: Request,

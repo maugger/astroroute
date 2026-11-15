@@ -1,12 +1,12 @@
 import pytest
 
+from astroroute.core.constants import EARTH_RADIUS_M
 from astroroute.core.constraints import (
     evaluate_candidate,
     evaluate_candidates,
     feasible_candidates,
 )
 from astroroute.core.hohmann import calculate_hohmann
-from astroroute.core.constants import EARTH_RADIUS_M
 from astroroute.core.models import MissionConstraints
 
 

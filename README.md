@@ -75,3 +75,4 @@ Example request:
 The radius values above are request inputs in metres; the response values are calculated by the physics engine. Interactive UI work remains deferred.
 
 The model does not yet include atmospheric drag, J2 perturbations, third-body gravity, finite burns, inclination changes, navigation errors, or mission failure probability. It is a scientific MVP foundation, not flight-certification software.
+

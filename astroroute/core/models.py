@@ -75,7 +75,7 @@ class MissionPreferences(BaseModel):
     transfer_time_weight: float = Field(default=0.25, ge=0)
     sensitivity_weight: float = Field(default=0.25, ge=0)
 
-    def model_post_init(self, __context: object) -> None:
+    def model_post_init(self, __context: object, /) -> None:
         total_weight = (
             self.delta_v_weight
             + self.transfer_time_weight
