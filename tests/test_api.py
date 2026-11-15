@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-from astroroute.api.app import analyze_mission_endpoint, app, health_check
+from astroroute.api.app import ErrorResponse, analyze_mission_endpoint, app, health_check
 from astroroute.core.constants import EARTH_RADIUS_M
 from astroroute.core.models import Mission
 
@@ -40,6 +40,16 @@ def test_analysis_endpoint_returns_backend_result():
     assert result.recommendation is not None
     assert analysis_schema["summary"] == "Analyze a circular-orbit mission"
     assert analysis_schema["requestBody"]["required"] is True
+    assert analysis_schema["responses"]["422"]["content"]
+
+
+def test_error_response_has_consistent_shape():
+    response = ErrorResponse(detail="request validation failed")
+
+    assert response.model_dump() == {
+        "detail": "request validation failed",
+        "errors": [],
+    }
 
 
 def test_analysis_endpoint_rejects_physically_invalid_transfer():

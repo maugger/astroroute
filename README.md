@@ -44,6 +44,8 @@ python -m uvicorn astroroute.api.app:app --reload
 
 Use `GET /health` for a process check and `POST /api/v1/missions/analyze` with a `Mission` payload for analysis. FastAPI also publishes interactive documentation at `/docs`.
 
+Invalid requests return HTTP 422 with a consistent object containing `detail` and an `errors` list. The list contains field-level validation details when request parsing or Pydantic validation fails; physically invalid mission inputs return the explanation in `detail`.
+
 Example request:
 
 ```json
