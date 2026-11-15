@@ -12,6 +12,7 @@ AstroRoute is a transparent spacecraft trajectory-planning prototype. The initia
 - Ideal rocket-equation propellant estimates
 - Mission feasibility evaluation for propellant and duration limits
 - Reproducible two-body burn-magnitude sensitivity analysis
+- End-to-end backend mission analysis and transparent recommendation
 - Pydantic result models
 - Input validation and regression tests
 
@@ -31,5 +32,7 @@ pytest
 Mission constraints currently support wet mass, specific impulse, maximum propellant mass, and maximum transfer duration. Rejected candidates retain explicit reasons so the decision process remains inspectable.
 
 Sensitivity experiments use a seeded Gaussian burn-magnitude error model and fourth-order Runge-Kutta two-body propagation. They report median, 95th-percentile, and worst terminal radius and speed errors. The sensitivity result is an execution-error metric, not a mission-failure probability.
+
+The backend analysis workflow now generates route candidates, evaluates mission constraints, identifies the delta-v/time Pareto set, runs sensitivity experiments for feasible routes, and produces a deterministic weighted recommendation. Recommendation explanations expose the metrics used; they are decision support, not proof of global optimality.
 
 The model does not yet include atmospheric drag, J2 perturbations, third-body gravity, finite burns, inclination changes, navigation errors, or mission failure probability. It is a scientific MVP foundation, not flight-certification software.

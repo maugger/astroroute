@@ -66,3 +66,48 @@ class SensitivityResult(BaseModel):
     terminal_speed_error_median_m_s: float = Field(ge=0)
     terminal_speed_error_p95_m_s: float = Field(ge=0)
     terminal_speed_error_worst_m_s: float = Field(ge=0)
+
+
+class MissionPreferences(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    delta_v_weight: float = Field(default=0.5, ge=0)
+    transfer_time_weight: float = Field(default=0.25, ge=0)
+    sensitivity_weight: float = Field(default=0.25, ge=0)
+
+    def model_post_init(self, __context: object) -> None:
+        total_weight = (
+            self.delta_v_weight
+            + self.transfer_time_weight
+            + self.sensitivity_weight
+        )
+        if total_weight <= 0:
+            raise ValueError("at least one mission preference weight must be positive")
+
+
+class Mission(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    initial_radius_m: float = Field(gt=0)
+    target_radius_m: float = Field(gt=0)
+    constraints: MissionConstraints
+    intermediate_apoapsis_radii_m: tuple[float, ...] = ()
+    preferences: MissionPreferences = MissionPreferences()
+    sensitivity: SensitivitySettings = SensitivitySettings()
+
+
+class Recommendation(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    route_id: str
+    weighted_score: float = Field(ge=0, le=1)
+    explanation: tuple[str, ...]
+
+
+class MissionAnalysis(BaseModel):
+    model_config = ConfigDict(frozen=True)
+
+    candidates: tuple[CandidateEvaluation, ...]
+    pareto_route_ids: tuple[str, ...]
+    sensitivity_results: tuple[SensitivityResult, ...]
+    recommendation: Recommendation | None
