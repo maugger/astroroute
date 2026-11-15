@@ -1,20 +1,19 @@
-export type MissionAnalysis = {
-  candidates: CandidateEvaluation[];
-  pareto_route_ids: string[];
-  sensitivity_results: SensitivityResult[];
-  recommendation: Recommendation | null;
+export type TransferResult = {
+  route_id: string;
+  route_type: string;
+  initial_radius_m: number;
+  target_radius_m: number;
+  delta_v_1_m_s: number;
+  delta_v_2_m_s: number;
+  delta_v_3_m_s: number;
+  delta_v_total_m_s: number;
+  transfer_time_s: number;
+  intermediate_apoapsis_m: number | null;
 };
 
 export type CandidateEvaluation = {
-  candidate: {
-    route_id: string;
-    route_type: string;
-    delta_v_total_m_s: number;
-    transfer_time_s: number;
-  };
-  propellant: {
-    propellant_mass_kg: number;
-  };
+  candidate: TransferResult;
+  propellant: { propellant_mass_kg: number };
   feasible: boolean;
   rejection_reasons: string[];
 };
@@ -29,6 +28,13 @@ export type Recommendation = {
   route_id: string;
   weighted_score: number;
   explanation: string[];
+};
+
+export type MissionAnalysis = {
+  candidates: CandidateEvaluation[];
+  pareto_route_ids: string[];
+  sensitivity_results: SensitivityResult[];
+  recommendation: Recommendation | null;
 };
 
 export type MissionRequest = {

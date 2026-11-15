@@ -17,3 +17,48 @@ h1, h2, h3, h4, p { margin: 0; } h1 { font-size: 15px; letter-spacing: -.02em; }
 .empty-state { display: grid; place-items: center; min-height: 360px; text-align: center; color: #89979d; }.empty-icon { margin-bottom: 16px; color: #8fd7c9; font-size: 42px; }.empty-state span { max-width: 250px; margin-top: 8px; color: #59676d; font-size: 12px; line-height: 1.5; }.results-content { padding-top: 24px; }.metric-strip { justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid #273036; }.metric-strip div { display: grid; gap: 8px; }.metric-strip span, .candidate-metric span { color: #77858b; font: 10px "DM Mono", monospace; text-transform: uppercase; }.metric-strip strong { color: #dce7e6; font-size: 17px; }.candidate-list { display: grid; gap: 8px; padding: 20px 0; }.candidate { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; align-items: center; gap: 16px; padding: 15px; border: 1px solid #273238; }.candidate.infeasible { opacity: .55; }.route-status { color: #7da39b; font-size: 9px; }.infeasible .route-status { color: #b0867d; }.candidate h4 { margin-top: 6px; font-size: 13px; }.candidate-metric { display: grid; gap: 6px; text-align: right; }.candidate-metric strong { font-size: 12px; font-weight: 500; }.recommendation { border-left: 2px solid #91d3c5; padding: 15px 17px; background: #12201f; }.recommendation h4 { margin: 8px 0; color: #a8dfd4; font-size: 15px; }.recommendation p:last-child { color: #9badb0; font-size: 12px; line-height: 1.6; }
 @media (max-width: 900px) { .intro { min-height: 280px; }.orbit-glyph { transform: scale(.7); margin-right: -35px; }.workspace-grid { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .app-shell { padding: 20px 18px 50px; }.intro { min-height: 250px; }.orbit-glyph { display: none; }.config-panel, .results-panel { padding: 18px; }.field-grid { grid-template-columns: 1fr; }.constraint-row { align-items: flex-start; flex-direction: column; }.constraint-values { width: 100%; }.constraint-values label { flex: 1; }.candidate { grid-template-columns: 1fr 1fr; }.candidate-metric { text-align: left; }.candidate-metric:last-child { grid-column: span 2; }.metric-strip { align-items: flex-start; flex-wrap: wrap; } }
+
+.candidate { width: 100%; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.candidate:hover, .candidate-selected { border-color: #659d92; background: #111b1a; }
+.analysis-grid { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(350px, 1.1fr); gap: 12px; margin-bottom: 20px; }
+.visual-panel { min-width: 0; padding: 16px; border: 1px solid #273238; background: #0c1013; }
+.visual-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.visual-heading h4 { margin-top: 6px; font-size: 13px; }
+.unit-note { color: #647279; font: 9px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.orbit-diagram { display: block; width: min(100%, 350px); margin: 0 auto; overflow: visible; }
+.orbit-ring { fill: none; stroke-width: 1; }
+.initial-orbit { stroke: #718e87; stroke-dasharray: 4 4; }
+.target-orbit { stroke: #465f67; }
+.transfer-arc { fill: none; stroke: #92dcca; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.earth-disc { fill: #264e51; stroke: #8ed7c5; stroke-width: 1.2; }
+.maneuver-marker { fill: #f1c681; stroke: #101415; stroke-width: 1.5; }
+.orbit-legend, .plot-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; color: #89979d; font: 9px "DM Mono", monospace; }
+.orbit-legend span, .plot-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.orbit-legend i { display: inline-block; width: 13px; height: 2px; }
+.legend-initial { border-top: 1px dashed #718e87; }.legend-target { background: #465f67; }.legend-transfer { background: #92dcca; }
+.pareto-plot { display: block; width: 100%; margin: 12px 0 0; overflow: visible; }
+.plot-grid { stroke: #253036; stroke-width: 1; }
+.plot-tick, .plot-axis-label { fill: #849197; font: 9px "DM Mono", monospace; }
+.plot-axis-label { fill: #aab6ba; }
+.plot-point { cursor: pointer; outline: none; }
+.plot-point circle { fill: #85939a; stroke: #0c1013; stroke-width: 2; }
+.plot-point.is-feasible circle { fill: #7eaaa0; }
+.plot-point.is-infeasible circle { fill: #a36f65; }
+.plot-point.is-pareto circle { stroke: #e9c87f; stroke-width: 2.5; }
+.plot-point.is-selected circle { r: 8px; filter: drop-shadow(0 0 5px #9de2d5); }
+.plot-point:focus circle { stroke: #fff; }
+.point-label { fill: #aeb9bc; font: 9px "DM Mono", monospace; pointer-events: none; }
+.plot-legend { justify-content: flex-start; gap: 13px; }
+.plot-legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.legend-feasible { background: #7eaaa0; }.legend-pareto { background: #e9c87f; }.legend-infeasible { background: #a36f65; }
+@media (max-width: 1100px) { .analysis-grid { grid-template-columns: 1fr; } }
+.visualizations-section { margin: 36px 0 0; padding: 32px 0 40px; border-top: 1px solid #273238; background: #0b0f12; }
+.visualization-section-label { margin: 0 auto 18px; max-width: 1440px; }
+.visualizations-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 22px; max-width: 1440px; margin: 0 auto; }
+.visual-panel { padding: 22px; }
+.orbit-diagram { width: min(100%, 760px); }
+.orbit-legend, .plot-legend { font-size: 11px; gap: 20px; }
+.pareto-plot { min-height: 380px; }
+.plot-tick, .plot-axis-label { font-size: 12px; }
+.point-label { font-size: 11px; }
+@media (max-width: 900px) { .visualizations-grid { grid-template-columns: 1fr; } }
